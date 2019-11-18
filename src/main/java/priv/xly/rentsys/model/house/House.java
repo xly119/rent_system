@@ -13,10 +13,7 @@ public class House {
 	private float rent;
 	private int state;
 	private int type;
-	private List<HouseLeaseRecord> leases;
 	private List<HouseVisitRecord> visits;
-	
-	
 	
 	public House(String ownerId, int maxTenantNum, float rent, int type,String picUrl) {
 		super();
@@ -26,7 +23,6 @@ public class House {
 		this.state = 0;
 		this.type = type;
 		this.picUrl=picUrl;
-		this.leases = new ArrayList<HouseLeaseRecord>();
 		this.visits = new ArrayList<HouseVisitRecord>();
 	}
 	
@@ -65,12 +61,6 @@ public class House {
 	}
 	public void setType(int type) {
 		this.type = type;
-	}
-	public List<HouseLeaseRecord> getLeases() {
-		return leases;
-	}
-	public void setLeases(List<HouseLeaseRecord> leases) {
-		this.leases = leases;
 	}
 	public List<HouseVisitRecord> getVisits() {
 		return visits;

@@ -2,6 +2,7 @@ package priv.xly.rentsys;
 
 import javax.servlet.MultipartConfigElement;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,23 +10,24 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-//@MapperScan("com.wizz.demo.dao")//É¨ÃèmapperµÄÂ·¾¶
+@MapperScan("priv.xly.rentsys.dao")
 //@EnableWebSecurity
 @EnableCaching
 @EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
-//@ComponentScan(basePackages = {"com.wizz.demo"})//ÒòÎªController²ãÓÐµÄÎª×¢½â@Controller£¬ÐèÒªÕâ¸ö×¢½âÀ´×¢Èë
+@ComponentScan(basePackages = {"priv.xly.rentsys"})
 public class RentsysApplication {
 
     public static void main(String[] args) {SpringApplication.run(RentsysApplication.class, args);}
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        //µ¥¸öÎÄ¼þ×î´ó
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½
         factory.setMaxFileSize("102400KB"); //KB,MB
-        /// ÉèÖÃ×ÜÉÏ´«Êý¾Ý×Ü´óÐ¡
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü´ï¿½Ð¡
         factory.setMaxRequestSize("1024000KB");
         return factory.createMultipartConfig();
     }

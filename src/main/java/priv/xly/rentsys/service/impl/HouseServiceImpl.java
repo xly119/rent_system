@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import priv.xly.rentsys.dao.HouseDao;
 import priv.xly.rentsys.model.house.House;
-import priv.xly.rentsys.model.house.HouseLeaseRecord;
 import priv.xly.rentsys.model.house.HouseVisitRecord;
 import priv.xly.rentsys.service.HouseService;
 import priv.xly.rentsys.util.OneImgUpload;
@@ -92,18 +91,6 @@ public class HouseServiceImpl implements HouseService {
 	}
 
 	@Override
-	public int insertLeaseRecord(int houseId, int tenantId, Date startDate, Date endDate) {
-		HouseLeaseRecord rec = new HouseLeaseRecord(houseId, tenantId, startDate, endDate);
-		houseDao.insertLease(rec);
-		return rec.getId();
-	}
-
-	@Override
-	public List<HouseLeaseRecord> getLeaseList(int houseId) {
-		return houseDao.getLeases(houseId);
-	}
-
-	@Override
 	public House getHouseById(int id) {
 		return houseDao.getHouseById(id);
 	}
@@ -111,5 +98,10 @@ public class HouseServiceImpl implements HouseService {
 	@Override
 	public List<HouseVisitRecord> getVisitListByOwner(int ownerId) {
 		return houseDao.getVisitsByOwner(ownerId);
+	}
+
+	@Override
+	public List<House> getHouseAvailable() {
+		return houseDao.getHouseAvailable();
 	}
 }

@@ -15,13 +15,13 @@ import priv.xly.rentsys.model.house.HouseVisitRecord;
 import priv.xly.rentsys.service.HouseService;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/house")
 public class HouseController {
 	
 	@Autowired
 	private HouseService houseService;
 	
-	@RequestMapping("/add/house")
+	@RequestMapping("/add")
 	public Object insertHouse(@RequestParam Map<String, String> params,
 							  @RequestParam(value = "file", required = false) MultipartFile file) throws Exception{
 		return houseService.insertHouse(file, params);
@@ -51,39 +51,36 @@ public class HouseController {
 		return houseService.getVisitList(houseId);
 	}
 	
-	@RequestMapping("/add/leaserec")
-	public Object insertLeaseRecord(@RequestParam(value = "houseId") int houseId,
-									@RequestParam(value = "tenantId") int tenantId,
-									@RequestParam(value = "startDate") Date startDate,
-									@RequestParam(value = "endDate") Date endDate) {
-		return houseService.insertLeaseRecord(houseId, tenantId, startDate, endDate);
-		
-	}
 	
-	@RequestMapping("/update/house/info")
+	@RequestMapping("/update/info")
 	public void updateHouseInfo(@RequestParam Map<String, String> params,
 							  	@RequestParam(value = "file", required = false) MultipartFile file) throws Exception{
 		houseService.updateInfo(file, params);
 	}
 	
-	@RequestMapping("/update/house/state")
+	@RequestMapping("/update/state")
 	public void updateHouseState(@RequestParam(value = "state") int state,
 								 @RequestParam(value = "id") int id) {
 		houseService.updateState(id, state);
 	}
 	
-	@RequestMapping("/del/house")
+	@RequestMapping("/del")
 	public void deleteHouse(@RequestParam(value = "id") int id) {
 		houseService.deleteHouse(id);
 	}
 	
-	@RequestMapping("/get/house")
+	@RequestMapping("/get")
 	public House getHouse(@RequestParam(value = "id") int id) {
 		return houseService.getHouseById(id);
 	}
 	
-	@RequestMapping("/get/houselist")
+	@RequestMapping("/get/list")
 	public List<House> getHousesByOwner(@RequestParam(value = "ownerId") int ownerId) {
 		return houseService.getHouses(ownerId);
+	}
+	
+	@RequestMapping("/get/list/available")
+	public List<House> getHouseAvailable() {
+		return houseService.getHouseAvailable();
 	}
 }

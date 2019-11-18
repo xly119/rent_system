@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import priv.xly.rentsys.model.house.House;
-import priv.xly.rentsys.model.house.HouseLeaseRecord;
 import priv.xly.rentsys.model.house.HouseVisitRecord;
 
 @Repository
@@ -27,12 +26,6 @@ public interface HouseDao {
 			+ "values(null,#{houseId},#{ownerId},#{visterId},#{visitTime},#{state})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
 	public void insertVisit(HouseVisitRecord visit);
-	
-	@Insert("insert into lease(id,house_id,tenant_id,start_date,end_date) "
-			+ "values(null,#{houseId},#{tenantId},#{startDate},#{endDate})")
-	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-	public void insertLease(HouseLeaseRecord visit);
-	
 
 	@Update("update house set max_tenant_num=#{maxTenantNum},"
 			+ "rent=#{rent},pic_url=#{picUrl} where id=#{id}")
@@ -51,8 +44,8 @@ public interface HouseDao {
 	@Select("select * from house where id=#{id}")
 	public House getHouseById(@Param("id") int id);
 	
-	@Select("select * from lease where house_id=#{id}")
-	public List<HouseLeaseRecord> getLeases(@Param("id") int id);
+	@Select("select * from house where state=0")
+	public List<House> getHouseAvailable();
 	
 	@Select("select * from visits where house_id=#{id}")
 	public List<HouseVisitRecord> getVisits(@Param("id") int id);

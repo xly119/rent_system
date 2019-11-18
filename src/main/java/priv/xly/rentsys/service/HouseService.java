@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import priv.xly.rentsys.model.house.House;
-import priv.xly.rentsys.model.house.HouseLeaseRecord;
 import priv.xly.rentsys.model.house.HouseVisitRecord;
 
 public interface HouseService {
@@ -18,14 +17,13 @@ public interface HouseService {
 	void deleteHouse(int id);
 	House getHouseById(int id);
 	List<House> getHouses(int ownerId);
+	List<House> getHouseAvailable();
 	
 	int insertVistRecord(int ownerId,int houseId, int visterId,Date visitTime);
 	void updateVisitState(int state,int id);
 	List<HouseVisitRecord> getVisitListByOwner(int ownerId);
 	List<HouseVisitRecord> getVisitList(int houseId);
-	
-	int insertLeaseRecord(int houseId, int tenantId, Date startDate, Date endDate);
-	List<HouseLeaseRecord> getLeaseList(int houseId);
+
 	
  
 }
