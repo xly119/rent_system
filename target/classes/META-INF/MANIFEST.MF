@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: 81005
+Build-Jdk: 11.0.2
+Implementation-Title: rentsys
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: priv.xly
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/rentsys
+Created-By: Maven Integration for Eclipse
+
