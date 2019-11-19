@@ -1,25 +1,22 @@
 package priv.xly.rentsys.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import priv.xly.rentsys.model.house.House;
-
 public class HouseOwner {
 
-	private int id;
+	private long id;
 	private String passwd;
 	private String name;
 	private String address;
 	private String phoneNum;
 	private String picUrl;
-	private List<House> houses;
 
-	public HouseOwner(String passwd, String name) {
-		super();
-		this.passwd = passwd;
-		this.name = name;
-		this.houses = new ArrayList<House>();
+	public static HouseOwner factory(String passwd, String name, String picUrl, String address, String phoneNum) {
+		HouseOwner owner = new HouseOwner();
+		owner.passwd = passwd;
+		owner.name = name;
+		owner.picUrl = picUrl;
+		owner.address = address;
+		owner.phoneNum = phoneNum;
+		return owner;
 	}
 
 	public String getPasswd() {
@@ -30,11 +27,11 @@ public class HouseOwner {
 		this.passwd = passwd;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -60,14 +57,6 @@ public class HouseOwner {
 
 	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
-	}
-
-	public List<House> getHouses() {
-		return houses;
-	}
-
-	public void setHouses(List<House> houses) {
-		this.houses = houses;
 	}
 
 	public String getPicUrl() {

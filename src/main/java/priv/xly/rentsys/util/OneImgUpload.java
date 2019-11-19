@@ -19,8 +19,6 @@ public class OneImgUpload {
 	public String filePath;
 	@Value("${web.swiper-maxsize}")
 	public int MAXSIZE;
-	@Value("${img.domain.name}")
-	public String imgDomain;
 
 	public Map<String, String> saveFile(MultipartFile file) throws Exception {
 
@@ -36,7 +34,6 @@ public class OneImgUpload {
 		file.transferTo(dest);
 		Map<String, String> data = new HashMap<String, String>();
 		data.put("name", fileName);
-		data.put("url", imgDomain + fileName);
 		return data;
 	}
 

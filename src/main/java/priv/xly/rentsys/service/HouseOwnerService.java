@@ -9,7 +9,7 @@ import priv.xly.rentsys.model.HouseOwner;
 
 public interface HouseOwnerService {
 
-	int insert(MultipartFile file, String passwd) throws Exception;
+	long insert(MultipartFile file, Map<String, String> param) throws Exception;
 	void update(MultipartFile file,Map<String, String> param) throws Exception;
 	HouseOwner get(int id);
 }

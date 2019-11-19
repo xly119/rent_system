@@ -1,6 +1,5 @@
 package priv.xly.rentsys.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +30,7 @@ public class HouseController {
 	public Object insertVisitRecord(@RequestParam(value = "ownerId") int ownerId,
 									@RequestParam(value = "houseId") int houseId,
 									@RequestParam(value = "visterId") int visterId,
-									@RequestParam(value = "visitTime") Date visitTime){
+									@RequestParam(value = "visitTime") String visitTime) throws Exception{
 		return houseService.insertVistRecord(ownerId,houseId, visterId, visitTime);
 	}
 
@@ -44,6 +43,11 @@ public class HouseController {
 	@RequestMapping("/visitrec/get/by_owner")
 	public List<HouseVisitRecord> getVisitsByOwner(@RequestParam(value = "ownerId") int ownerId){
 		return houseService.getVisitListByOwner(ownerId);
+	}
+	
+	@RequestMapping("/visitrec/get/by_tenant")
+	public List<HouseVisitRecord> getVisitsByTenant(@RequestParam(value = "visiterId") int visiterId){
+		return houseService.getVisitListByVisiter(visiterId);
 	}
 	
 	@RequestMapping("/visitrec/get/by_house")

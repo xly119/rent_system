@@ -4,19 +4,27 @@ import java.util.Date;
 
 public class Tenant {
 
-	private int id;
+	private long id;
 	private String passwd;
 	private String name;
 	private String address;
 	private String phoneNum;
 	private Date birthday;
-	private int sex;
+	private Integer sex;
 	private String picUrl;
 
-	public Tenant(String passwd, String name) {
-		super();
-		this.passwd = passwd;
-		this.name = name;
+	public static Tenant factory(String passwd, String name, String picUrl, String address, String phoneNum,
+			Integer sex, Date birthday) {
+		Tenant tenant = new Tenant();
+		tenant.passwd = passwd;
+		tenant.picUrl = picUrl;
+		tenant.name = name;
+		tenant.picUrl = picUrl;
+		tenant.address = address;
+		tenant.phoneNum = phoneNum;
+		tenant.birthday = birthday;
+		tenant.sex = sex;
+		return tenant;
 	}
 
 	public String getPasswd() {
@@ -27,11 +35,11 @@ public class Tenant {
 		this.passwd = passwd;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -67,11 +75,11 @@ public class Tenant {
 		this.birthday = birthday;
 	}
 
-	public int getSex() {
+	public Integer getSex() {
 		return sex;
 	}
 
-	public void setSex(int sex) {
+	public void setSex(Integer sex) {
 		this.sex = sex;
 	}
 

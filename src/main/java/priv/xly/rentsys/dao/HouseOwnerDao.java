@@ -11,8 +11,9 @@ import priv.xly.rentsys.model.HouseOwner;
 
 @Repository
 public interface HouseOwnerDao {
-
-	@Insert("insert into house_owner(id,passwd,pic_url) values(null,#{passwd},#{picUrl})")
+	//String passwd, String name ,String picUrl,String address,String phoneNum
+	@Insert("insert into house_owner(id,passwd,pic_url,name,address,phone_num) "
+			+ "values(null,#{passwd},#{picUrl},#{name},#{address},#{phoneNum})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
 	public void insert(HouseOwner h);
 

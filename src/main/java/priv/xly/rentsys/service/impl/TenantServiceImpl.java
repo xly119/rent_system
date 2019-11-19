@@ -1,6 +1,7 @@
 package priv.xly.rentsys.service.impl;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -21,18 +22,20 @@ public class TenantServiceImpl implements TenantService {
 	OneImgUpload oneImgUpload;
 	@Autowired
 	TenantDao tenantDao;
-	@Value("${}")
-	public String FILE_PATH;
-	@Value("${}")
-	public String DEFAULT_PIC_URL;
+	@Value("${web.upload-path}")
+	private String FILE_PATH;
+	@Value("${web.defsult-pic-path}")
+	private String DEFAULT_PIC_URL;
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Override
-	public int insert(MultipartFile file, String passwd) throws Exception {
+	public long insert(MultipartFile file, Map<String, String> param) throws Exception {
 		String picName = DEFAULT_PIC_URL;
 		if (file != null && file.getSize() > 0) {
 			picName = oneImgUpload.saveFile(file).get("name");
 		}
-		Tenant tenant=new Tenant(passwd, picName);
+		Tenant tenant = Tenant.factory(param.get("passwd"), param.get("name"), picName, param.get("address"),
+				param.get("phoneNum"), Integer.parseInt(param.get("sex")), format.parse(param.get("birthday")));
 		tenantDao.insert(tenant);
 		return tenant.getId();
 	}
@@ -43,7 +46,7 @@ public class TenantServiceImpl implements TenantService {
 		Tenant tenant = tenantDao.get(id);
 		if (tenant != null) {
 			if (file != null && file.getSize() > 0) {
-				File oldPic = new File(tenant.getPicUrl());
+				File oldPic = new File(FILE_PATH + tenant.getPicUrl());
 				if (tenant.getPicUrl() != DEFAULT_PIC_URL && oldPic.exists() && oldPic.isFile()) {
 					oldPic.delete();
 				}

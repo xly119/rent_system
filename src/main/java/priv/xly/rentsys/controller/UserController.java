@@ -12,7 +12,7 @@ import priv.xly.rentsys.service.HouseOwnerService;
 import priv.xly.rentsys.service.TenantService;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -21,17 +21,29 @@ public class UserController {
 	private TenantService tenantService;
 
 	@RequestMapping("/register/owner")
-	public Object insertOwner(@RequestParam(value = "passwd") String passwd,
+	public Object insertOwner(@RequestParam Map<String, String> params,
 							  @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
-		return houseOwnerService.insert(file, passwd);
+		return houseOwnerService.insert(file, params);
 	}
 
 	@RequestMapping("/register/tenant")
-	public Object insertTenant(@RequestParam(value = "passwd") String passwd,
+	public Object insertTenant(@RequestParam Map<String, String> params,
 			                   @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
-		return tenantService.insert(file, passwd);
+		return tenantService.insert(file, params);
 	}
 
+	@RequestMapping("/login/owner")
+	public Object owenerLoginCheck(@RequestParam(value = "passwd") String passwd,
+								   @RequestParam(value = "id") int id) {
+		return houseOwnerService.get(id).getPasswd().equals(passwd);
+	}
+	
+	@RequestMapping("/login/tenant")
+	public Object tenantLoginCheck(@RequestParam(value = "passwd") String passwd,
+								   @RequestParam(value = "id") int id) {
+		return tenantService.get(id).getPasswd().equals(passwd);
+	}
+	
 	@RequestMapping("/update/ownerinfo")
 	public void updateOwnerInfo(@RequestParam Map<String, String> params,
 			 					@RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
@@ -44,5 +56,13 @@ public class UserController {
 		tenantService.update(file, params);
 	}
 	
+	@RequestMapping("/get/tenant")
+	public Object getTenant(@RequestParam(value = "id") int id) {
+		return tenantService.get(id);
+	}
 	
+	@RequestMapping("/get/owner")
+	public Object getOwner(@RequestParam(value = "id") int id) {
+		return houseOwnerService.get(id);
+	}
 }

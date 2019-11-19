@@ -20,18 +20,19 @@ public class HouseOwnerServiceImpl implements HouseOwnerService {
 	OneImgUpload oneImgUpload;
 	@Autowired
 	HouseOwnerDao houseOwnerDao;
-	@Value("${}")
+	@Value("${web.upload-path}")
 	public String FILE_PATH;
-	@Value("${}")
+	@Value("${web.defsult-pic-path}")
 	public String DEFAULT_PIC_URL;
 
 	@Override
-	public int insert(MultipartFile file, String passwd) throws Exception {
+	public long insert(MultipartFile file, Map<String, String> param) throws Exception {
 		String picName = DEFAULT_PIC_URL;
 		if (file != null && file.getSize() > 0) {
 			picName = oneImgUpload.saveFile(file).get("name");
 		}
-		HouseOwner owner=new HouseOwner(passwd, picName);
+		HouseOwner owner = HouseOwner.factory(param.get("passwd"), param.get("name"), picName, param.get("address"),
+				param.get("phoneNum"));
 		houseOwnerDao.insert(owner);
 		return owner.getId();
 	}
@@ -42,7 +43,7 @@ public class HouseOwnerServiceImpl implements HouseOwnerService {
 		HouseOwner owner = houseOwnerDao.get(id);
 		if (owner != null) {
 			if (file != null && file.getSize() > 0) {
-				File oldPic = new File(owner.getPicUrl());
+				File oldPic = new File(FILE_PATH + owner.getPicUrl());
 				if (owner.getPicUrl() != DEFAULT_PIC_URL && oldPic.exists() && oldPic.isFile()) {
 					oldPic.delete();
 				}

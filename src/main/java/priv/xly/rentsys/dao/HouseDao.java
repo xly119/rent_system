@@ -18,12 +18,12 @@ public interface HouseDao {
 
 	
 	@Insert("insert into house(id,owner_id,max_tenant_num,rent,type,state,pic_url) "
-			+ "values(null,#{ownerId},#{maxTenantNum},#{phoneNum},#{type},#{state},,#{picUrl})")
+			+ "values(null,#{ownerId},#{maxTenantNum},#{rent},#{type},#{state},#{picUrl})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
 	public void insertHouse(House house);
 	
-	@Insert("insert into visits(id,house_id,owner_id,vister_id,visit_time,state) "
-			+ "values(null,#{houseId},#{ownerId},#{visterId},#{visitTime},#{state})")
+	@Insert("insert into visits(id,house_id,owner_id,visiter_id,visit_time,state) "
+			+ "values(null,#{houseId},#{ownerId},#{visiterId},#{visitTime},#{state})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
 	public void insertVisit(HouseVisitRecord visit);
 
@@ -52,6 +52,9 @@ public interface HouseDao {
 	
 	@Select("select * from visits where owner_id=#{id}")
 	public List<HouseVisitRecord> getVisitsByOwner(@Param("id") int id);
+	
+	@Select("select * from visits where visiter_id=#{id}")
+	public List<HouseVisitRecord> getVisitsByVisiter(@Param("id") int id);
 	
 	@Delete("delete from  house where id=#{id}")
     public void deleteHouse(@Param("id") int id);

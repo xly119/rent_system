@@ -1,9 +1,5 @@
 package priv.xly.rentsys.model.house;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class House {
 
 	private int id;
@@ -13,17 +9,16 @@ public class House {
 	private float rent;
 	private int state;
 	private int type;
-	private List<HouseVisitRecord> visits;
 	
-	public House(String ownerId, int maxTenantNum, float rent, int type,String picUrl) {
-		super();
-		this.ownerId = ownerId;
-		this.maxTenantNum = maxTenantNum;
-		this.rent = rent;
-		this.state = 0;
-		this.type = type;
-		this.picUrl=picUrl;
-		this.visits = new ArrayList<HouseVisitRecord>();
+	public static House HouseFactory(String ownerId, int maxTenantNum, float rent, int type,String picUrl) {
+		House house=new House();
+		house.ownerId = ownerId;
+		house.maxTenantNum = maxTenantNum;
+		house.rent = rent;
+		house.state = 0;
+		house.type = type;
+		house.picUrl=picUrl;
+		return house;
 	}
 	
 	public int getId() {
@@ -61,12 +56,6 @@ public class House {
 	}
 	public void setType(int type) {
 		this.type = type;
-	}
-	public List<HouseVisitRecord> getVisits() {
-		return visits;
-	}
-	public void setVisits(List<HouseVisitRecord> visits) {
-		this.visits = visits;
 	}
 
 	public String getPicUrl() {

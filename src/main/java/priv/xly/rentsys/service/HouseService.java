@@ -19,9 +19,10 @@ public interface HouseService {
 	List<House> getHouses(int ownerId);
 	List<House> getHouseAvailable();
 	
-	int insertVistRecord(int ownerId,int houseId, int visterId,Date visitTime);
+	int insertVistRecord(int ownerId,int houseId, int visterId,String visitTime)throws Exception;
 	void updateVisitState(int state,int id);
 	List<HouseVisitRecord> getVisitListByOwner(int ownerId);
+	List<HouseVisitRecord> getVisitListByVisiter(int visiterId);
 	List<HouseVisitRecord> getVisitList(int houseId);
 
 	

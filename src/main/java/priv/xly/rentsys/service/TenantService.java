@@ -7,7 +7,7 @@ import priv.xly.rentsys.model.Tenant;
 
 public interface TenantService {
 
-	int insert(MultipartFile file, String passwd) throws Exception;
+	long insert(MultipartFile file,  Map<String, String> param) throws Exception;
 	void update(MultipartFile file, Map<String, Object> param) throws Exception;
 	Tenant get(int id);
 }

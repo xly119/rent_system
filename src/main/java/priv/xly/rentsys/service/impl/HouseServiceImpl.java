@@ -1,7 +1,7 @@
 package priv.xly.rentsys.service.impl;
 
 import java.io.File;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -23,18 +23,19 @@ public class HouseServiceImpl implements HouseService {
 	OneImgUpload oneImgUpload;
 	@Autowired
 	HouseDao houseDao;
-	@Value("${}")
+	@Value("${web.upload-path}")
 	public String FILE_PATH;
-	@Value("${}")
+	@Value("${web.defsult-pic-path}")
 	public String DEFAULT_PIC_URL;
-
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	
 	@Override
 	public int insertHouse(MultipartFile file, Map<String, String> param) throws Exception {
 		String picName = DEFAULT_PIC_URL;
 		if (file != null && file.getSize() > 0) {
 			picName = oneImgUpload.saveFile(file).get("name");
 		}
-		House house = new House(param.get("ownerId"), Integer.parseInt(param.get("maxTenantNum")),
+		House house = House.HouseFactory(param.get("ownerId"), Integer.parseInt(param.get("maxTenantNum")),
 				Float.parseFloat(param.get("rent")), Integer.parseInt(param.get("type")), picName);
 		houseDao.insertHouse(house);
 		return house.getId();
@@ -67,9 +68,16 @@ public class HouseServiceImpl implements HouseService {
 	public void updateVisitState(int state, int id) {
 		houseDao.updateVisitState(state, id);
 	}
-	
+
 	@Override
 	public void deleteHouse(int id) {
+		House house = houseDao.getHouseById(id);
+		if (house != null) {
+			File oldPic = new File(FILE_PATH + house.getPicUrl());
+			if (house.getPicUrl() != DEFAULT_PIC_URL && oldPic.exists() && oldPic.isFile()) {
+				oldPic.delete();
+			}
+		}
 		houseDao.deleteHouse(id);
 	}
 
@@ -79,8 +87,8 @@ public class HouseServiceImpl implements HouseService {
 	}
 
 	@Override
-	public int insertVistRecord(int ownerId, int houseId, int visterId, Date visitTime) {
-		HouseVisitRecord rec = new HouseVisitRecord(ownerId, houseId, visterId, visitTime);
+	public int insertVistRecord(int ownerId, int houseId, int visterId, String visitTime) throws Exception {
+		HouseVisitRecord rec = HouseVisitRecord.factory(ownerId, houseId, visterId, format.parse(visitTime));
 		houseDao.insertVisit(rec);
 		return rec.getId();
 	}
@@ -103,5 +111,10 @@ public class HouseServiceImpl implements HouseService {
 	@Override
 	public List<House> getHouseAvailable() {
 		return houseDao.getHouseAvailable();
+	}
+
+	@Override
+	public List<HouseVisitRecord> getVisitListByVisiter(int visiterId) {
+		return houseDao.getVisitsByVisiter(visiterId);
 	}
 }

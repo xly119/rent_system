@@ -7,18 +7,19 @@ public class HouseVisitRecord {
 	private int id;
 	private int houseId;
 	private int ownerId;
-	private int visterId;
+	private int visiterId;
 	private int state; //待同意，待赴约，已取消，已完成
 	private Date visitTime;
 	
 	
-	public HouseVisitRecord(int ownerId,int houseId, int visterId,Date visitTime) {
-		super();
-		this.ownerId=ownerId;
-		this.houseId = houseId;
-		this.visterId = visterId;
-		this.visitTime = visitTime;
-		this.state=0;
+	public static HouseVisitRecord factory(int ownerId,int houseId, int visiterId,Date visitTime) {
+		HouseVisitRecord visit=new HouseVisitRecord();
+		visit.ownerId=ownerId;
+		visit.houseId = houseId;
+		visit.visiterId = visiterId;
+		visit.visitTime = visitTime;
+		visit.state=0;
+		return visit;
 	}
 	
 	public int getOwnerId() {
@@ -43,11 +44,11 @@ public class HouseVisitRecord {
 	public void setHouseId(int houseId) {
 		this.houseId = houseId;
 	}
-	public int getVisterId() {
-		return visterId;
+	public int getVisiterId() {
+		return visiterId;
 	}
-	public void setVisterId(int visterId) {
-		this.visterId = visterId;
+	public void setVisiterId(int visiterId) {
+		this.visiterId = visiterId;
 	}
 	public Date getVisitTime() {
 		return visitTime;
