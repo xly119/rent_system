@@ -3,6 +3,7 @@ package priv.xly.rentsys.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import priv.xly.rentsys.service.TenantService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired
@@ -34,14 +36,14 @@ public class UserController {
 
 	@RequestMapping("/login/owner")
 	public Object owenerLoginCheck(@RequestParam(value = "passwd") String passwd,
-								   @RequestParam(value = "id") int id) {
-		return houseOwnerService.get(id).getPasswd().equals(passwd);
+								   @RequestParam(value = "phoneNum") String phoneNum) {
+		return houseOwnerService.loginCheck(phoneNum, passwd);
 	}
 	
 	@RequestMapping("/login/tenant")
 	public Object tenantLoginCheck(@RequestParam(value = "passwd") String passwd,
-								   @RequestParam(value = "id") int id) {
-		return tenantService.get(id).getPasswd().equals(passwd);
+								   @RequestParam(value = "phoneNum") String phoneNum) {
+		return tenantService.loginCheck(phoneNum, passwd);
 	}
 	
 	@RequestMapping("/update/ownerinfo")
@@ -51,7 +53,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/update/tenantInfo")
-	public void updateTenantInfo(@RequestParam Map<String, Object> params,
+	public void updateTenantInfo(@RequestParam Map<String, String> params,
 							     @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
 		tenantService.update(file, params);
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import priv.xly.rentsys.service.HouseService;
 
 @RestController
 @RequestMapping("/house")
+@CrossOrigin(origins = "*")
 public class HouseController {
 	
 	@Autowired
@@ -27,11 +29,11 @@ public class HouseController {
 	}
 
 	@RequestMapping("/visitrec/request")
-	public Object insertVisitRecord(@RequestParam(value = "ownerId") int ownerId,
-									@RequestParam(value = "houseId") int houseId,
+	public Object insertVisitRecord(@RequestParam(value = "houseId") int houseId,
 									@RequestParam(value = "visterId") int visterId,
-									@RequestParam(value = "visitTime") String visitTime) throws Exception{
-		return houseService.insertVistRecord(ownerId,houseId, visterId, visitTime);
+									@RequestParam(value = "visitTime") String visitTime,
+									@RequestParam(value = "mark") String mark) throws Exception{
+		return houseService.insertVistRecord(houseId, visterId, visitTime,mark);
 	}
 
 	@RequestMapping("/visitrec/change_state")
@@ -54,7 +56,24 @@ public class HouseController {
 	public List<HouseVisitRecord> getVisitsByHouse(@RequestParam(value = "houseId") int houseId){
 		return houseService.getVisitList(houseId);
 	}
+
+	@RequestMapping("/subscirbe/inc")
+	public void subscribe(@RequestParam(value = "houseId") int houseId,
+						  @RequestParam(value = "userId") int userId) {
+		houseService.insertSubs(houseId, userId);
+	}
 	
+	@RequestMapping("/subscirbe/dec")
+	public void unsubscribe(@RequestParam(value = "houseId") int houseId,
+							@RequestParam(value = "userId") int userId) {
+		houseService.delSubs(houseId, userId);
+	}
+	
+	@RequestMapping("/subscirbe/check")
+	public Object subscribeCheck(@RequestParam(value = "houseId") int houseId,
+							     @RequestParam(value = "userId") int userId) {
+		return houseService.subsCheck(houseId, userId);
+	}
 	
 	@RequestMapping("/update/info")
 	public void updateHouseInfo(@RequestParam Map<String, String> params,
@@ -86,5 +105,10 @@ public class HouseController {
 	@RequestMapping("/get/list/available")
 	public List<House> getHouseAvailable() {
 		return houseService.getHouseAvailable();
+	}
+	
+	@RequestMapping("/get/list/subs")
+	public List<House> getHouseSubscribed(@RequestParam(value = "userId") int userId){
+		return houseService.getHouseSubscribed(userId);
 	}
 }

@@ -3,14 +3,16 @@ package priv.xly.rentsys.model.house;
 public class House {
 
 	private int id;
-	private String ownerId;
+	private int ownerId;
 	private String picUrl;
 	private int maxTenantNum;
+	private String address;
 	private float rent;
 	private int state;
 	private int type;
+	private int subs;
 	
-	public static House HouseFactory(String ownerId, int maxTenantNum, float rent, int type,String picUrl) {
+	public static House HouseFactory(int ownerId, int maxTenantNum, float rent, int type,String picUrl,String address) {
 		House house=new House();
 		house.ownerId = ownerId;
 		house.maxTenantNum = maxTenantNum;
@@ -18,6 +20,7 @@ public class House {
 		house.state = 0;
 		house.type = type;
 		house.picUrl=picUrl;
+		house.address=address;
 		return house;
 	}
 	
@@ -27,10 +30,10 @@ public class House {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getOwnerId() {
+	public int getOwnerId() {
 		return ownerId;
 	}
-	public void setOwnerId(String ownerId) {
+	public void setOwnerId(int ownerId) {
 		this.ownerId = ownerId;
 	}
 	public int getMaxTenantNum() {
@@ -64,6 +67,22 @@ public class House {
 
 	public void setPicUrl(String picUrl) {
 		this.picUrl = picUrl;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getSubs() {
+		return subs;
+	}
+
+	public void setSubs(int subs) {
+		this.subs = subs;
 	}
 	
 	

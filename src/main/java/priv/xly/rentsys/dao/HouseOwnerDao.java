@@ -11,17 +11,20 @@ import priv.xly.rentsys.model.HouseOwner;
 
 @Repository
 public interface HouseOwnerDao {
-	//String passwd, String name ,String picUrl,String address,String phoneNum
+	
 	@Insert("insert into house_owner(id,passwd,pic_url,name,address,phone_num) "
 			+ "values(null,#{passwd},#{picUrl},#{name},#{address},#{phoneNum})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
 	public void insert(HouseOwner h);
 
-	@Update("update house_owner set name=#{name},address=#{address},phone_num=#{phoneNum}"
+	@Update("update house_owner set name=#{name},address=#{address},phone_num=#{phoneNum},passwd=#{passwd}"
 			+ ",pic_url=#{picUrl} where id=#{id}")
 	public void update(HouseOwner owner);
 
 	@Select("select * from house_owner where id=#{id}")
 	public HouseOwner get(@Param("id") int id);
+
+	@Select("select * from house_owner where phone_num=#{phoneNum}")
+	public HouseOwner getByPhoneNum(@Param("phoneNum") String phoneNum);
 
 }

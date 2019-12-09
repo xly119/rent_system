@@ -1,6 +1,5 @@
 package priv.xly.rentsys.dao;
 
-import java.util.Date;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -13,18 +12,20 @@ import priv.xly.rentsys.model.Tenant;
 @Repository
 public interface TenantDao {
 	
-	//String passwd, String name,String picUrl,String address
-	//,String phoneNum,Date birthday,int sex
+
 	@Insert("insert into tenant(id,passwd,pic_url,name,address,phone_num,birthday,sex)"
 			+ " values(null,#{passwd},#{picUrl},#{name},#{address},#{phoneNum},#{birthday},#{sex})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
 	public void insert(Tenant t);
 
-	@Update("update house_owner set name=#{name},address=#{address},phone_num=#{phoneNum},birthday=#{birthday},"
+	@Update("update tenant set name=#{name},address=#{address},phone_num=#{phoneNum},birthday=#{birthday},passwd=#{passwd},"
 			+ "sex=#{sex},pic_url=#{picUrl} where id=#{id}")
 	public void update(Tenant t);
 
 	@Select("select * from tenant where id=#{id}")
 	public Tenant get(@Param("id") int id);
+	
+	@Select("select * from tenant where phone_num=#{phoneNum}")
+	public Tenant getByPhoneNum(@Param("phoneNum") String phoneNum);
 
 }

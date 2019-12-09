@@ -2,7 +2,7 @@ package priv.xly.rentsys.service.impl;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +28,16 @@ public class TenantServiceImpl implements TenantService {
 	private String DEFAULT_PIC_URL;
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+	/*
+	 * 新增房客
+	 * 
+	 * @return 新增房客的id
+	 * 
+	 * @exception 文件异常，数据库操作异常
+	 * 
+	 * @see priv.xly.rentsys.service.TenantService#insert(org.springframework.web.
+	 * multipart.MultipartFile, java.util.Map)
+	 */
 	@Override
 	public long insert(MultipartFile file, Map<String, String> param) throws Exception {
 		String picName = DEFAULT_PIC_URL;
@@ -40,9 +50,17 @@ public class TenantServiceImpl implements TenantService {
 		return tenant.getId();
 	}
 
+	/*
+	 * 更新房屋信息
+	 * 
+	 * @exception 文件异常，数据库操作异常
+	 * 
+	 * @see priv.xly.rentsys.service.TenantService#update(org.springframework.web.
+	 * multipart.MultipartFile, java.util.Map)
+	 */
 	@Override
-	public void update(MultipartFile file, Map<String, Object> param) throws Exception {
-		int id = (int) param.get("id");
+	public void update(MultipartFile file, Map<String, String> param) throws Exception {
+		int id = Integer.parseInt(param.get("id"));
 		Tenant tenant = tenantDao.get(id);
 		if (tenant != null) {
 			if (file != null && file.getSize() > 0) {
@@ -52,17 +70,41 @@ public class TenantServiceImpl implements TenantService {
 				}
 				tenant.setPicUrl(oneImgUpload.saveFile(file).get("name"));
 			}
-			tenant.setAddress(param.get("address").toString());
-			tenant.setBirthday((Date) param.get("birthday"));
-			tenant.setName(param.get("name").toString());
-			tenant.setPhoneNum(param.get("phoneNum").toString());
-			tenant.setSex((int) param.get("sex"));
+			tenant.setAddress(param.get("address"));
+			tenant.setBirthday(format.parse(param.get("birthday")));
+			tenant.setName(param.get("name"));
+			tenant.setPhoneNum(param.get("phoneNum"));
+			tenant.setPasswd(param.get("passwd"));
+			tenant.setSex(Integer.parseInt(param.get("sex")));
 			tenantDao.update(tenant);
 		}
 	}
 
+	/*
+	 * 根据id获取房客
+	 * 
+	 * @return 房客
+	 * 
+	 * @see priv.xly.rentsys.service.TenantService#get(int)
+	 */
 	@Override
 	public Tenant get(int id) {
 		return tenantDao.get(id);
+	}
+
+	/*
+	 * 根据手机号码验证房客密码
+	 * 
+	 * @return 房客
+	 * 
+	 * @see priv.xly.rentsys.service.TenantService#getByPhoneNum(java.lang.String)
+	 */
+	@Override
+	public Tenant loginCheck(String phoneNum,String passwd) {
+		Tenant tenant = tenantDao.getByPhoneNum(phoneNum);
+		if(tenant==null) {
+			return null;
+		}
+		return tenant.getPasswd().equals(passwd)?tenant:null;
 	}
 }

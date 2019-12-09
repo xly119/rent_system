@@ -19,12 +19,16 @@ public interface HouseService {
 	List<House> getHouses(int ownerId);
 	List<House> getHouseAvailable();
 	
-	int insertVistRecord(int ownerId,int houseId, int visterId,String visitTime)throws Exception;
+	int insertVistRecord(int houseId, int visterId,String visitTime,String mark)throws Exception;
 	void updateVisitState(int state,int id);
 	List<HouseVisitRecord> getVisitListByOwner(int ownerId);
 	List<HouseVisitRecord> getVisitListByVisiter(int visiterId);
 	List<HouseVisitRecord> getVisitList(int houseId);
 
+	void insertSubs(int houseId,int userId);
+	void delSubs(int houseId,int userId);
+	boolean subsCheck(int houseId,int userId);
+	List<House> getHouseSubscribed(int userId);
 	
  
 }
