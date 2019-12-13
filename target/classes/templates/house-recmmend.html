@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>房屋推荐页面</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">  
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
+
+  <!-- google icon link-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- google suport Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- google suport Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script src="/js/house-recmmend.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <nav>
+          <div class="nav-wrapper grey">
+            <a href="#" class="brand-logo">119找房</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a href="http://localhost:8101/rentsys/recommend">房源推荐</a></li>
+				<li><a href="http://localhost:8101/rentsys/main/tenant">个人主页</a></li>
+              <li><a id="log-out">退出登录</a>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" >
+<div class="row">
+
+  <div class="col-sm-8" >
+    <div id="house-list">
+</div>
+
+</div>
+<div class="col-sm-4">
+  <div class="">
+          <div style="text-align: center;">
+            <h3 class="lead" style="font-size: 200%;">
+              条件过滤
+            </h3>
+          </div>
+          <form  id="new-house-form">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">house</i>
+                <input id="address" type="text" class="validate">
+                <label for="address">地址</label>
+                <span class="helper-text">按地址中的关键词筛选</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <i class="material-icons prefix">euro_symbol</i>
+                <input id="rent-high" type="text" class="validate">
+                <label for="rent-high">租金上限</label>
+              </div>
+               <div class="input-field col s6">
+                <input id="rent-low" type="text" class="validate" >
+                <label for="rent-low">租金下限</label>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <i class="material-icons prefix">people</i>
+                <input id="maxTenantNum" type="text" class="validate">
+                <label for="maxTenantNum">人数</label>
+                <span class="helper-text">能容纳的最多房客数量</span>
+              </div>
+                            <div class="input-field col s6">
+                <select id="type" >
+                  <option value="-1">请选择</option>
+                  <option value="0">平房</option>
+                  <option  value="1">带阳台的楼房</option>
+                  <option value="2">独立式住宅</option>
+                </select>
+                <label>房屋类型</label>
+              </div>
+
+
+            </div>
+            <div class="row" >
+              <div class="col s12" style="text-align:center;">
+                <a class="btn-floating btn-small waves-effect waves-light teal" onclick="getHouseFiltered();">
+                  <i class="material-icons">done</i>
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+</div>
+</div>
+
+
+  <div style="text-align: center;margin-left:50%;" id="pagebttn">
+          <ul class="pagination">
+            <li class="waves-effect"><a onclick="goPage(-1);"><i class="material-icons">chevron_left</i></a></li>
+
+            <li class="waves-effect"><a onclick="goPage(1);"><i class="material-icons">chevron_right</i></a></li>
+          </ul>
+        </div>
+
+
+  <div class="row" id="example" style="display: none;">
+    <div class="col-sm-11">
+      <div class="card-panel position-relative">
+        <div class="row valign-wrapper" style="margin:0px;">
+          <div class="col col-sm-5">
+            <img id="house-pic" src="" alt="" class="rounded-lg responsive-img">
+          </div>
+          <div class="col col-sm-7">
+            <span class="black-text" >
+              <h5 id="house-name">十个中文字符是多少呀</h5>
+              <blockquote class="" style="border-left-color:grey;font-size:120%;color:#757575 ;font-weight: 500;">
+                <span id="house-addr"></span><br>
+                <span id="house-desc"></span><br>              
+                <i  class="fa fa-usd" style="color:#f9a825 ;"></i> <span style="color:#f9a825 ;"id="house-rent"></span>
+              </blockquote>
+            </span>
+          </div>
+        </div>
+        <a href="#" class="stretched-link"></a>
+
+      </div>
+    </div>
+  </div>
+  </div>
+ 
+</body>
+</html>

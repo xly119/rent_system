@@ -18,7 +18,7 @@ public class HouseOwnerServiceImpl implements HouseOwnerService {
 
 	@Autowired
 	OneImgUpload oneImgUpload;
-	@Autowired
+	@Autowired 
 	HouseOwnerDao houseOwnerDao;
 	@Value("${web.upload-path}")
 	public String FILE_PATH;
@@ -33,11 +33,15 @@ public class HouseOwnerServiceImpl implements HouseOwnerService {
 	 */
 	@Override
 	public long insert(MultipartFile file, Map<String, String> param) throws Exception {
+		HouseOwner owner = houseOwnerDao.getByPhoneNum(param.get("phoneNum"));
+		if(owner!=null) {
+			return -1;
+		}
 		String picName = DEFAULT_PIC_URL;
 		if (file != null && file.getSize() > 0) {
 			picName = oneImgUpload.saveFile(file).get("name");
 		}
-		HouseOwner owner = HouseOwner.factory(param.get("passwd"), param.get("name"), picName, param.get("address"),
+		owner = HouseOwner.factory(param.get("passwd"), param.get("name"), picName, param.get("address"),
 				param.get("phoneNum"));
 		houseOwnerDao.insert(owner);
 		return owner.getId();

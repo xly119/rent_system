@@ -48,7 +48,7 @@ public class HouseServiceImpl implements HouseService {
 		}
 		House house = House.HouseFactory(Integer.parseInt(param.get("ownerId")),
 				Integer.parseInt(param.get("maxTenantNum")), Float.parseFloat(param.get("rent")),
-				Integer.parseInt(param.get("type")), picName, param.get("address"));
+				Integer.parseInt(param.get("type")), picName, param.get("address"), param.get("title"));
 		houseDao.insertHouse(house);
 		return house.getId();
 	}
@@ -76,6 +76,7 @@ public class HouseServiceImpl implements HouseService {
 			}
 			house.setMaxTenantNum(Integer.parseInt(param.get("maxTenantNum")));
 			house.setRent(Float.parseFloat(param.get("rent")));
+			house.setTitle(param.get("title"));
 			house.setType(Integer.parseInt(param.get("type")));
 			houseDao.updateHouseInfo(house);
 		}

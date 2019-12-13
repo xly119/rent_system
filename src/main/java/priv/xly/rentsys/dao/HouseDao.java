@@ -17,8 +17,8 @@ import priv.xly.rentsys.model.house.HouseVisitRecord;
 public interface HouseDao {
 
 	
-	@Insert("insert into house(id,owner_id,max_tenant_num,rent,type,state,pic_url,address) "
-			+ "values(null,#{ownerId},#{maxTenantNum},#{rent},#{type},#{state},#{picUrl},#{address})")
+	@Insert("insert into house(id,owner_id,max_tenant_num,rent,type,state,pic_url,address,title) "
+			+ "values(null,#{ownerId},#{maxTenantNum},#{rent},#{type},#{state},#{picUrl},#{address},#{title})")
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
 	public void insertHouse(House house);
 	
@@ -32,7 +32,7 @@ public interface HouseDao {
 	public void insertSubs(@Param("userId") int userId,@Param("houseId") int houseId);
 
 	@Update("update house set max_tenant_num=#{maxTenantNum},type=#{type},"
-			+ "rent=#{rent},pic_url=#{picUrl} where id=#{id}")
+			+ "rent=#{rent},title=#{title},pic_url=#{picUrl} where id=#{id}")
 	public void updateHouseInfo(House house);
 	
 	@Update("update house set state=#{state} where id=#{id}")

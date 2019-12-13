@@ -1,0 +1,43 @@
+.sidebar-row{
+	height:55px;
+		margin-left:20px;
+				margin-bottom:0px;
+		
+
+}
+.rounded-pill{
+		position:relative;
+}
+.rounded-pill *{
+	color:	#606060;
+	
+}
+.info{
+	display:inline;
+	position:absolute;
+	left:23%;
+	top:25%;
+	font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    font-weight: 500;
+}
+.info-icon{
+	display:inline;
+	position:absolute;
+	right:84%;
+	top:22%;
+}
+.houseadd{
+		display:inline;
+	position: absolute;
+	right: 65%;
+}
+
+#user-form{
+	width:70%;
+	margin-left:7%;
+	
+}
+.user-form-title{
+	text-align:center;
+	margin-bottom: 20px;
+}

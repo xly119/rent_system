@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>租客主页</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">  
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
+
+	<!-- google icon link-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- google suport Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<!-- google suport Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="/css/tenant-main.css">
+
+	<script src="/js/signup-tenant.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<nav>
+					<div class="nav-wrapper grey">
+						<a href="#" class="brand-logo">119找房</a>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3">
+			</div>
+			<div class="col-sm-6">
+				<div class="shadow p-3 mb-5 bg-white rounded">
+					<div class="user-form-title">
+						<h3 class="lead" style="font-size: 200%;">
+							个人信息
+						</h3>
+						<small class="text-muted">
+							您将在119找房服务中使用的基本信息，例如您的姓名和照片
+						</small>
+					</div>
+					<form id="new-tenant-form" >
+						<div class="row">
+							<div class="input-field col s6">
+								<i class="material-icons prefix">account_circle</i>
+								<input id="name" type="text" class="validate" >
+								<label for="name">姓名</label>
+								<span class="helper-text">您的真实姓名</span>
+							</div>
+							<div class="input-field col s6">
+								<i class="material-icons prefix">phone</i>
+								<input id="phoneNum" type="tel" class="validate">
+								<label for="phoneNum">电话号码</label>
+								<span id="phone-hlper" class="helper-text">此号码将用于登录和看房联络</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<i class="material-icons prefix">cake</i>
+								<input id="birthday" type="text" class="datepicker">
+								<label for="birthday">出生日期</label>
+							</div>
+							<div class="input-field col s6">
+								<select id="sex">
+									<option value="1" selected>男</option>
+									<option value="2">女</option>
+								</select>
+								<label>性别</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">house</i>
+								<input id="address" type="text" class="validate">
+								<label for="address">地址</label>
+								<span class="helper-text">您的住址</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">lock</i>
+								<input id="passwd" type="password" class="validate">
+								<label for="passwd">密码</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="file-field input-field col s12">
+								<div >
+									<input id="pic" type="file">
+								</div>
+								<div class="file-path-wrapper">
+									<i class="material-icons prefix">perm_media</i>
+									<input class="file-path validate" type="text" id="ignore" placeholder="点击添加图片">
+									<span class="helper-text">您的头像</span>
+								</div>
+							</div>
+							
+						</div>
+						<div class="row" >
+							<div class="col s12" style="text-align:center;">
+								<a class="btn-floating btn-small waves-effect waves-light teal"  onclick="signUp();">
+									<i class="material-icons">done</i>
+								</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- -->
+
+
+</body>
+</html>

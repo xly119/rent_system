@@ -1,0 +1,44 @@
+
+    .main-block{
+        margin: 10px;
+        padding :10px;
+    }
+    .house-info-block{
+    	text-align: center;
+        margin: 8px;
+    }
+    .house-info-column{
+        margin-top:20px;
+    }
+    .logo{
+        font-size: 150%;
+    }
+    .house-info-rent{
+    	font-weight: bold;
+        font-size:200%;
+        color: #FF6600;
+    }
+    .house-info-ownerpic{
+        width: 40%;
+    }
+    .house-basic-unit{
+        font-size: 200%;
+        text-align: center;
+        text-decoration: none;  /*去掉前面的圆点*/
+        list-style: none;
+        float: left;
+        width: 20%;
+        margin:5%;
+    }
+    .house-basic-unit > p{
+        color: silver;
+        font-size: medium;
+    }
+
+    #collapseExample *{
+        margin: 2px;
+    }
+
+    .list-group{
+        color: #495057;
+    }

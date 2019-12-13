@@ -40,11 +40,15 @@ public class TenantServiceImpl implements TenantService {
 	 */
 	@Override
 	public long insert(MultipartFile file, Map<String, String> param) throws Exception {
+		Tenant tenant = tenantDao.getByPhoneNum(param.get("phoneNum"));
+		if(tenant!=null) {
+			return -1;
+		}
 		String picName = DEFAULT_PIC_URL;
 		if (file != null && file.getSize() > 0) {
 			picName = oneImgUpload.saveFile(file).get("name");
 		}
-		Tenant tenant = Tenant.factory(param.get("passwd"), param.get("name"), picName, param.get("address"),
+		tenant = Tenant.factory(param.get("passwd"), param.get("name"), picName, param.get("address"),
 				param.get("phoneNum"), Integer.parseInt(param.get("sex")), format.parse(param.get("birthday")));
 		tenantDao.insert(tenant);
 		return tenant.getId();

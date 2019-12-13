@@ -11,8 +11,9 @@ public class House {
 	private int state;
 	private int type;
 	private int subs;
+	private String title;
 	
-	public static House HouseFactory(int ownerId, int maxTenantNum, float rent, int type,String picUrl,String address) {
+	public static House HouseFactory(int ownerId, int maxTenantNum, float rent, int type,String picUrl,String address,String title) {
 		House house=new House();
 		house.ownerId = ownerId;
 		house.maxTenantNum = maxTenantNum;
@@ -21,9 +22,18 @@ public class House {
 		house.type = type;
 		house.picUrl=picUrl;
 		house.address=address;
+		house.title=title;
 		return house;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public int getId() {
 		return id;
 	}
